@@ -2,6 +2,7 @@ import InputField from "../components/InputField";
 import {useState} from "react";
 import ErrorMessage from "../components/errorMessage";
 import {useNavigate} from "react-router-dom";
+import {useAuth} from "../security/user";
 
 const Register = () => {
     const Navigate = useNavigate();

@@ -12,15 +12,19 @@ import {AuthProvider, useAuth} from './user';
 
 export const ProtectedRoutes = ({needToConnect, needToNotConnect}) => {
     const { userStatusInfo } = useAuth();
-    console.log(userStatusInfo.is_user);
+    const isAuthenticated = userStatusInfo?.is_user;
 
 
-        if (needToConnect && !userStatusInfo.is_user && !needToNotConnect) {
+    if (isAuthenticated === null) {
+        return <div>Loading...</div>;
+    }else {
+        if (needToConnect && !isAuthenticated && !needToNotConnect) {
             return <Navigate to="/"/>;
-        } else if (!needToConnect && userStatusInfo.is_user && needToNotConnect) {
+        } else if (!needToConnect && isAuthenticated && needToNotConnect) {
             return <Navigate to="/"/>;
         } else {
             return (<Outlet/>);
         }
+    }
 
 };

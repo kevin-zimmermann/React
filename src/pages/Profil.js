@@ -10,8 +10,8 @@ const Profil = () => {
     const { userStatusInfo } = useAuth();
     const navigate = useNavigate();
     const [password, setPassword] = useState('');
-    const [login, setLogin] = useState('');
-    const [email, setEmail] = useState('');
+    const [login, setLogin] = useState(userStatusInfo.infoUser.login);
+    const [email, setEmail] = useState(userStatusInfo.infoUser.email);
     const [errors, setErrors] = useState([]);
 
     const handlePasswordChange = (event) => {
@@ -66,7 +66,6 @@ const Profil = () => {
     } else {
         return (<div>
             <Header/>
-
             <h1>Profil</h1>
             <Navbar/>
 
