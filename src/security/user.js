@@ -1,43 +1,48 @@
-import {useState, useEffect} from 'react';
+import {createContext, useContext, useEffect, useState} from "react";
 
-export const AuthProvider = () => {
-    const [userStatus, setUserStatus] = useState(null); // Initialize user status to null
+const AuthContext = createContext(null);
+export const AuthProvider = ({ children }) => {
+    const [userStatusInfo, setUserStatusInfo] = useState(null);
 
-    const isUser = async () => {
+    const isUser = async() => {
         const token = localStorage.getItem('token');
-        const formData = {page: 'isUser'};
-
+        const formData = { page: 'isUser' };
         if (token) {
-            try {
-                const response = await fetch('http://127.0.0.1/howToVerify/traitement.php', {
-                    method: 'POST', headers: {
-                        'Content-Type': 'application/json', Authorization: token,
-                    }, body: JSON.stringify(formData),
+                const response = await fetch('http://127.0.0.1/ReactApi-/traitement.php', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                        Authorization: token,
+                    },
+                    body: JSON.stringify(formData),
                 });
-
                 const dataResponse = await response.json();
-                console.log(dataResponse)
-                // Update the userStatus state with the received data
-                setUserStatus(dataResponse);
-            } catch (err) {
-                console.log(err);
-            }
+                setUserStatusInfo(dataResponse);
         } else {
-            return false;
+            setUserStatusInfo(false);
         }
-
     }
-    useEffect(() => {
-        // Call the isUser function when the component mounts
-        const fetchUserData = async () => {
-            const user = await isUser();
-            console.log(user)
+    useEffect( () => {
+            isUser();
+    }
+    , []);
 
-            // No need to return dataResponse, setUserStatus already sets the state
-        };
-        fetchUserData();
-    }, []); // Empty dependency array ensures the effect runs only once on mount
-
-    console.log(userStatus);
-    return userStatus; // This will be returned by the component, but you may not need it depending on your use case.
+    return (
+        <AuthContext.Provider value={{ userStatusInfo }}>
+            {children}
+        </AuthContext.Provider>
+    );
 };
+
+export const useAuth = () => {
+    const context = useContext(AuthContext);
+    if (!context) {
+        throw new Error('useAuth doit être utilisé à l\'intérieur de AuthProvider');
+    }
+    return context;
+}
+
+
+
+
+

@@ -16,16 +16,15 @@ const Login = () => {
 
 
     useEffect(() => {
-        // This effect runs whenever 'data' state changes
-        // Check if there's a token in the response and navigate if it exists
         if (data.token) {
             navigate('/');
+            window.location.href = '/';
         }
     }, [data.token, navigate]);
 
     const fetchData = async (formData) => {
         try {
-            const response = await fetch('http://127.0.0.1/howToVerify/traitement.php', {
+            const response = await fetch('http://127.0.0.1/ReactApi-/traitement.php', {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json' }, // Update the Content-Type
                 body: JSON.stringify(formData),
@@ -54,14 +53,11 @@ const Login = () => {
         if (login !== '' && password !== '') {
 
             const formData = {'login': login, 'password': password, 'page': 'connexion'};
-
             fetchData(formData)
 
             setPassword("");
             setLogin("");
             // setEmail("");
-
-
         }
 
     };

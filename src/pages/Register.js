@@ -12,6 +12,7 @@ const Register = () => {
 
     const handleLoginChange = (event) => {
         setLogin(event.target.value);
+        //Vérification login existant
     };
 
     const handleEmailChange = (event) => {
@@ -27,8 +28,9 @@ const Register = () => {
 
             const formData = {'login': login, 'password': password, 'email': email, 'page':'register'};
 
-            fetch('http://127.0.0.1/howToVerify/traitement.php?valider=1', {
-                method: 'POST', headers: {'Content-Type': 'multipart/form-data'}, // Modifier l'en-tête Content-Type
+
+            fetch('http://127.0.0.1/ReactAPI-/traitement.php?valider=1', {
+                method: 'POST', // Modifier l'en-tête Content-Type
                 body: JSON.stringify(formData),
             })
                 .then(response => {return response.json()})

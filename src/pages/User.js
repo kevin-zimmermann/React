@@ -12,7 +12,7 @@ const User = () => {
         const formData = {'id': params.id, 'page': 'getUser'};
 
         try {
-            const response = await fetch('http://127.0.0.1/howToVerify/traitement.php', {
+            const response = await fetch('http://127.0.0.1/ReactApi-/traitement.php', {
                 method: 'POST', headers: {
                     'Content-Type': 'application/json',
                     Authorization: token

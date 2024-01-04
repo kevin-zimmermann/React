@@ -3,13 +3,17 @@ import Login from "./pages/Login";
 import Register from "./pages/Register";
 import Index from "./pages/Index";
 import Profil from "./pages/Profil";
-import {Deconnexion} from "./security/deconnexion";
+import {Deconnexion} from "./components/deconnexion";
 import {ProtectedRoutes} from "./security/ProtectedRoutes";
 import User from "./pages/User";
+import {AuthProvider} from "./security/user";
+import {useContext} from "react";
 
 
 const App = () => {
-    return (<BrowserRouter>
+
+    return (<AuthProvider>
+        <BrowserRouter>
         <Routes>
             <Route index element={<Index/>}/>
             <Route path="/" element={<Index/>}/>
@@ -21,9 +25,10 @@ const App = () => {
             <Route exact path='/' element={<ProtectedRoutes needToConnect={false} needToNotConnect={true}/>}>
                 <Route path="register" element={<Register/>}/>
                 <Route path="login" element={<Login/>}/>
-        </Route>
+            </Route>
         </Routes>
-    </BrowserRouter>);
+    </BrowserRouter>
+    </AuthProvider>);
 };
 
 export default App;
