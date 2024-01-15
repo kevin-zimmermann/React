@@ -8,7 +8,7 @@ export const AuthProvider = ({ children }) => {
         const token = localStorage.getItem('token');
         const formData = { page: 'isUser' };
         if (token) {
-                const response = await fetch('http://127.0.0.1/ReactApi-/traitement.php', {
+                const response = await fetch('http://127.0.0.1/howToVerify/traitement.php', {
                     method: 'POST',
                     headers: {
                         'Content-Type': 'application/json',

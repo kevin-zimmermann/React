@@ -5,6 +5,7 @@ import {useEffect, useState} from "react";
 import InputField from "../components/InputField";
 import {Navbar} from "../components/navbar";
 import ErrorMessage from "../components/errorMessage";
+import Button from "../components/Button";
 
 const Profil = () => {
     const { userStatusInfo } = useAuth();
@@ -33,7 +34,7 @@ const Profil = () => {
 
             const formData = {'login': login, 'password': password, 'email': email, 'page': 'profil'};
 
-            fetch('http://127.0.0.1/ReactApi-/traitement.php', {
+            fetch('http://127.0.0.1/howToVerify/traitement.php', {
                 method: 'POST', headers: {'Content-Type': 'multipart/form-data', Authorization: token}, // Modifier l'en-tête Content-Type
                 body: JSON.stringify(formData),
             })
@@ -43,6 +44,7 @@ const Profil = () => {
                     localStorage.removeItem('token');
                     if (data.status !== true) {
                         setErrors(data)
+
                         navigate('/deconnexion');
 
                     }
@@ -66,18 +68,21 @@ const Profil = () => {
     } else {
         return (<div>
             <Header/>
-            <h1>Profil</h1>
             <Navbar/>
-
-            <div>
+            <h1 className={"font-bold text-center text-5xl"}>Profil</h1>
+            <div className={"w-9/12 h-auto m-auto justify-center"}>
                 <form onSubmit={handleSubmit}>
                     <InputField
+                        placeholder={"email@email.com"}
+                        className={"appearance-none block w-full bg-gray-200 text-gray-700 border rounded py-3 px-4 mb-3 leading-tight focus:outline-none focus:bg-white"}
                         label="Email:"
                         type="email"
                         value={email}
                         onChange={handleEmailChange}
                     />
                     <InputField
+                        placeholder={"YourLogin"}
+                        className={"appearance-none block w-full bg-gray-200 text-gray-700 border rounded py-3 px-4 mb-3 leading-tight focus:outline-none focus:bg-white"}
                         label="Login:"
                         type="text"
                         value={login}
@@ -85,6 +90,8 @@ const Profil = () => {
                     />
 
                     <InputField
+                        placeholder={"YourPassword"}
+                        className={"appearance-none block w-full bg-gray-200 text-gray-700 border rounded py-3 px-4 mb-3 leading-tight focus:outline-none focus:bg-white"}
                         label="Password:"
                         type="password"
                         value={password}
@@ -92,7 +99,10 @@ const Profil = () => {
                     />
                     <ErrorMessage messages={errors}/>
 
-                    <button type="submit">Envoyer</button>
+                    <Button
+                        className={"bg-blue-500 hover:bg-blue-400 text-white font-bold py-2 px-4 border-b-4 border-blue-700 hover:border-blue-500 rounded justify-center"}
+                        type="submit" innerHTML={"Envoyer"}>
+                    </Button>
                 </form>
             </div>
         </div>);

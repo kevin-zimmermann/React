@@ -6,9 +6,9 @@ export const Navbar = () => {
     const { userStatusInfo } = useAuth();
 
     return (
-        <div>
+        <div className={"mb-5"}>
             {userStatusInfo && userStatusInfo.is_user === true ? (
-                <nav>
+                <nav className={"text-cyan-500"}>
                     <Link to="/">Home</Link>/
                     <Link to="/profil">Profil</Link>/
                     <Link to="/" onClick={Deconnexion}>Se déconnecter</Link>

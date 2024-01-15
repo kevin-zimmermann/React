@@ -2,6 +2,7 @@ import {useEffect, useState} from 'react';
 import {Navigate, useNavigate} from "react-router-dom";
 import InputField from "../components/InputField";
 import ErrorMessage from "../components/errorMessage";
+import Button from "../components/Button";
 
 
 const Login = () => {
@@ -11,8 +12,8 @@ const Login = () => {
     const [password, setPassword] = useState('');
     const [login, setLogin] = useState('');
     // const [email, setEmail] = useState('');
-    const [errors , setErrors] = useState([]);
-    const [data,setData] = useState([]);
+    const [errors, setErrors] = useState([]);
+    const [data, setData] = useState([]);
 
 
     useEffect(() => {
@@ -24,14 +25,17 @@ const Login = () => {
 
     const fetchData = async (formData) => {
         try {
-            const response = await fetch('http://127.0.0.1/ReactApi-/traitement.php', {
+            const response = await fetch('http://127.0.0.1/howToVerify/traitement.php', {
                 method: 'POST',
-                headers: { 'Content-Type': 'application/json' }, // Update the Content-Type
+                headers: {'Content-Type': 'application/json'}, // Update the Content-Type
                 body: JSON.stringify(formData),
             });
             const data = await response.json();
             setData(data);
-            localStorage.setItem('token', data.token);
+            if (data.token) {
+                localStorage.setItem('token', data.token);
+            }
+
             setErrors(data.err);
             return data;
         } catch (error) {
@@ -63,25 +67,37 @@ const Login = () => {
     };
 
     return (
-        <form onSubmit={handleSubmit}>
-            <InputField
-                label="Login:"
-                type="text"
-                value={login}
-                onChange={handleLoginChange}
-            />
+        <div>
+            <h1 className={"font-bold text-center text-5xl mt-10"}>Connexion</h1>
+            <div className={"h-screen flex items-center justify-center"}>
+                <div className={"w-9/12 h-auto m-auto justify-center content-center"}>
+                    <form onSubmit={handleSubmit}>
+                        <InputField
+                            placeholder={"Login"}
+                            className={"appearance-none block w-full bg-gray-200 text-gray-700 border rounded py-3 px-4 mb-3 leading-tight focus:outline-none focus:bg-white"}
+                            label="Login:"
+                            type="text"
+                            value={login}
+                            onChange={handleLoginChange}
+                        />
 
-            <InputField
-                label="Password:"
-                type="password"
-                value={password}
-                onChange={handlePasswordChange}
-            />
-            <ErrorMessage messages={errors}/>
+                        <InputField
+                            placeholder={"Password"}
+                            className={"appearance-none block w-full bg-gray-200 text-gray-700 border rounded py-3 px-4 mb-3 leading-tight focus:outline-none focus:bg-white"}
+                            label="Password:"
+                            type="password"
+                            value={password}
+                            onChange={handlePasswordChange}
+                        />
+                        <ErrorMessage messages={errors}/>
 
-
-            <button type="submit">Envoyer</button>
-        </form>
+                        <Button
+                            className={"bg-blue-500 hover:bg-blue-400 text-white font-bold py-2 px-4 border-b-4 border-blue-700 hover:border-blue-500 rounded justify-center"}
+                            type="submit" innerHTML={"Envoyer"}></Button>
+                    </form>
+                </div>
+            </div>
+        </div>
     );
 };
 

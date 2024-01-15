@@ -3,7 +3,7 @@ const Header = () => {
     return (
         <div>
             <header>
-                <nav>
+                <nav className={"text-sky-500 text-center"}>
                     Test
                 </nav>
             </header>

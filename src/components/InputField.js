@@ -1,8 +1,8 @@
-const InputField = ( {label, type, value, onChange} ) => {
+const InputField = ( {label, type, value, onChange,className,placeholder} ) => {
     return (
         <div>
             <label>{label}</label>
-            <input type={type} value={value} onChange={onChange} />
+            <input className={className} type={type} value={value} onChange={onChange} placeholder={placeholder} />
         </div>
     );
 };
