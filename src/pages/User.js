@@ -3,6 +3,7 @@ import Header from "../components/Header";
 import {useEffect, useState} from "react";
 import {AuthProvider} from "../security/user";
 import {Navbar} from "../components/navbar";
+import ButtonAddQuote from "../components/ButtonAddQuote";
 const User = () => {
     const params = useParams();
 
@@ -12,7 +13,7 @@ const User = () => {
         const formData = {'id': params.id, 'page': 'getUser'};
 
         try {
-            const response = await fetch('http://127.0.0.1/howToVerify/traitement.php', {
+            const response = await fetch('http://127.0.0.1/ReactApi-/traitement.php', {
                 method: 'POST', headers: {
                     'Content-Type': 'application/json',
                     Authorization: token
@@ -53,6 +54,7 @@ console.log(typeof  getUser);
                 <Header/>
                 <h1>User avec ID {params.id}</h1>
                 <Navbar/>
+                <ButtonAddQuote/>
                 {typeof getUser === 'string' ? (
                     getUser
                 ) : (

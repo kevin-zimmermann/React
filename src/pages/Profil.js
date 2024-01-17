@@ -6,6 +6,7 @@ import InputField from "../components/InputField";
 import {Navbar} from "../components/navbar";
 import ErrorMessage from "../components/errorMessage";
 import Button from "../components/Button";
+import ButtonAddQuote from "../components/ButtonAddQuote";
 
 const Profil = () => {
     const { userStatusInfo } = useAuth();
@@ -34,7 +35,7 @@ const Profil = () => {
 
             const formData = {'login': login, 'password': password, 'email': email, 'page': 'profil'};
 
-            fetch('http://127.0.0.1/howToVerify/traitement.php', {
+            fetch('http://127.0.0.1/ReactApi-/traitement.php', {
                 method: 'POST', headers: {'Content-Type': 'multipart/form-data', Authorization: token}, // Modifier l'en-tête Content-Type
                 body: JSON.stringify(formData),
             })
@@ -69,6 +70,7 @@ const Profil = () => {
         return (<div>
             <Header/>
             <Navbar/>
+            <ButtonAddQuote/>
             <h1 className={"font-bold text-center text-5xl"}>Profil</h1>
             <div className={"w-9/12 h-auto m-auto justify-center"}>
                 <form onSubmit={handleSubmit}>
