@@ -7,6 +7,7 @@ import {Navbar} from "../components/navbar";
 import ErrorMessage from "../components/errorMessage";
 import Button from "../components/Button";
 import ButtonAddQuote from "../components/ButtonAddQuote";
+import Quotes from "../components/Quotes";
 
 const Profil = () => {
     const { userStatusInfo } = useAuth();
@@ -15,7 +16,34 @@ const Profil = () => {
     const [login, setLogin] = useState(userStatusInfo.infoUser.login);
     const [email, setEmail] = useState(userStatusInfo.infoUser.email);
     const [errors, setErrors] = useState([]);
+    const [quotes, setQuotes] = useState([]);
+    const token = localStorage.getItem('token');
 
+    const getQuotes = async () => {
+        try {
+            const formData = { page: 'showQuotesByUser' };
+            const response = await fetch('http://127.0.0.1/ReactApi-/traitement.php', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                    'Authorization': token,
+                },
+                body: JSON.stringify(formData),
+            });
+            const dataResponse = await response.json();
+            setQuotes(dataResponse);
+        } catch (error) {
+            console.error('Error fetching quotes:', error);
+        }
+    };
+
+    useEffect(() => {
+        const fetchData = async () => {
+            await getQuotes();
+        };
+
+        fetchData(); // Initial fetch
+    }, []);
     const handlePasswordChange = (event) => {
         setPassword(event.target.value);
     };
@@ -69,9 +97,9 @@ const Profil = () => {
     } else {
         return (<div>
             <Header/>
-            <Navbar/>
+
             <ButtonAddQuote/>
-            <h1 className={"font-bold text-center text-5xl"}>Profil</h1>
+            <h1 className={"font-bold text-center text-5xl  my-9"}>Profil</h1>
             <div className={"w-9/12 h-auto m-auto justify-center"}>
                 <form onSubmit={handleSubmit}>
                     <InputField
@@ -106,6 +134,8 @@ const Profil = () => {
                         type="submit" innerHTML={"Envoyer"}>
                     </Button>
                 </form>
+                <h3 className={"font-bold text-center text-5xl my-9"}>Citations</h3>
+                <Quotes quotes={quotes}/>
             </div>
         </div>);
     }

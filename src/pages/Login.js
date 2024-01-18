@@ -3,6 +3,7 @@ import {Navigate, useNavigate} from "react-router-dom";
 import InputField from "../components/InputField";
 import ErrorMessage from "../components/errorMessage";
 import Button from "../components/Button";
+import Header from "../components/Header";
 
 
 const Login = () => {
@@ -68,6 +69,7 @@ const Login = () => {
 
     return (
         <div>
+            <Header/>
             <h1 className={"font-bold text-center text-5xl mt-10"}>Connexion</h1>
             <div className={"h-screen flex items-center justify-center"}>
                 <div className={"w-9/12 h-auto m-auto justify-center content-center"}>

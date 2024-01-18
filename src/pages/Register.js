@@ -4,6 +4,7 @@ import ErrorMessage from "../components/errorMessage";
 import {useNavigate} from "react-router-dom";
 import {useAuth} from "../security/user";
 import Button from "../components/Button";
+import Header from "../components/Header";
 
 const Register = () => {
     const Navigate = useNavigate();
@@ -59,7 +60,9 @@ const Register = () => {
     };
 
     return (
+
         <div>
+            <Header/>
             <h1 className={"font-bold text-center text-5xl mt-10"}>Inscription</h1>
             <div className={"h-screen flex items-center justify-center"}>
                 <div className={"w-9/12 h-auto m-auto justify-center content-center"}>

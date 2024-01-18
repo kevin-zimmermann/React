@@ -53,7 +53,7 @@ console.log(typeof  getUser);
             <div>
                 <Header/>
                 <h1>User avec ID {params.id}</h1>
-                <Navbar/>
+
                 <ButtonAddQuote/>
                 {typeof getUser === 'string' ? (
                     getUser
