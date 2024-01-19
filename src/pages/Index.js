@@ -79,32 +79,41 @@ const Index = () => {
 
 
     return (
-        <div>
-            <Header/>
-            <main>
+        <div className="min-h-screen flex flex-col">
+            <Header />
+            <ButtonAddQuote />
+            <main className="flex-grow">
                 {userStatusInfo && userStatusInfo.is_user === true ? (
                     <div className="flex w-full items-start justify-center gap-2.5 mb-7">
-                            <form className={""} onSubmit={handleSubmit}>
-                        <textarea id="description" rows="4"
-                                  className="block w-full resize-none p-2.5 text-sm my-6 text-gray-900 bg-gray-50 rounded-lg border border-gray-300 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
-                                  placeholder="Écrivez vos citations préférées..."
-                                  value={quoteValue}
-                                  onChange={handleQuoteValueChange}></textarea>
-                                <ErrorMessage messages={errors}/>
-                                <Button
-                                    className={"bg-blue-500 hover:bg-blue-400 text-white font-bold py-2 px-4 border-b-4 border-blue-700 hover:border-blue-500 rounded justify-center "}
-                                    type="submit" innerHTML={"Envoyez vos inspirations"}></Button>
-                            </form>
+                        <form className={""} onSubmit={handleSubmit}>
+            <textarea
+                id="description"
+                rows="4"
+                className="block w-full resize-none p-2.5 text-sm my-6 text-gray-900 bg-gray-50 rounded-lg border border-gray-300 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                placeholder="Écrivez vos citations préférées..."
+                value={quoteValue}
+                onChange={handleQuoteValueChange}
+            ></textarea>
+                            <ErrorMessage messages={errors} />
+                            <Button
+                                className={
+                                    "bg-blue-500 hover:bg-blue-400 text-white font-bold py-2 px-4 border-b-4 border-blue-700 hover:border-blue-500 rounded justify-center "
+                                }
+                                type="submit"
+                                innerHTML={"Envoyez vos inspirations"}
+                            ></Button>
+                        </form>
                     </div>
-
                 ) : null}
-                <h3 className={"font-bold text-center text-5xl my-9"}>Citations des 24 dernières heures</h3>
-                <Quotes quotes={quotes}/>
+                <h3 className={"font-bold text-center text-5xl my-9"}>
+                    Citations des 24 dernières heures
+                </h3>
+                <Quotes quotes={quotes} />
             </main>
-            <ButtonAddQuote/>
-            <Footer></Footer>
+            <Footer />
         </div>
     );
+
 };
 
 export default Index;

@@ -5,6 +5,7 @@ import {useNavigate} from "react-router-dom";
 import {useAuth} from "../security/user";
 import Button from "../components/Button";
 import Header from "../components/Header";
+import Footer from "../components/Footer";
 
 const Register = () => {
     const Navigate = useNavigate();
@@ -101,6 +102,7 @@ const Register = () => {
                     </form>
                 </div>
             </div>
+            <Footer/>
         </div>
     )
         ;
