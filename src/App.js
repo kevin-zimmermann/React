@@ -7,7 +7,6 @@ import {Deconnexion} from "./components/deconnexion";
 import {ProtectedRoutes} from "./security/ProtectedRoutes";
 import User from "./pages/User";
 import {AuthProvider} from "./security/user";
-import {useContext} from "react";
 
 
 const App = () => {

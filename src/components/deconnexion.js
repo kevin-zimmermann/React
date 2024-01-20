@@ -1,5 +1,3 @@
-import {Link} from "react-router-dom";
-import {useAuth} from "../security/user";
 
 export const Deconnexion = () => {
 

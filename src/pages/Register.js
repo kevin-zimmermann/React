@@ -2,7 +2,6 @@ import InputField from "../components/InputField";
 import {useState} from "react";
 import ErrorMessage from "../components/errorMessage";
 import {useNavigate} from "react-router-dom";
-import {useAuth} from "../security/user";
 import Button from "../components/Button";
 import Header from "../components/Header";
 import Footer from "../components/Footer";

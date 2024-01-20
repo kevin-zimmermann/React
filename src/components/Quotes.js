@@ -4,7 +4,6 @@ import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
 import {useAuth} from "../security/user";
 import ErrorMessage from "./errorMessage";
 import Button from "./Button";
-import {useNavigate} from "react-router-dom";
 
 const Quotes = ({quotes}) => {
     const {userStatusInfo} = useAuth();
@@ -14,7 +13,6 @@ const Quotes = ({quotes}) => {
     const [isModalEditVisible, setIsModalEditVisible] = useState(false);
     const [quoteValue, setQuoteValue] = useState("")
     const [quoteIdClicked, setQuoteIdClicked] = useState(null);
-    const navigate = useNavigate();
 
     const [color, setColor] = useState('');
     const arrayColor = ['red', 'blue', 'green', 'yellow', 'pink'];

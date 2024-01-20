@@ -56,7 +56,7 @@ const Login = () => {
     // };
     const handleSubmit = (event) => {
         event.preventDefault();
-        if (login !== '' && password !== '') {
+
 
             const formData = {'login': login, 'password': password, 'page': 'connexion'};
             fetchData(formData)
@@ -64,7 +64,7 @@ const Login = () => {
             setPassword("");
             setLogin("");
             // setEmail("");
-        }
+
 
     };
 

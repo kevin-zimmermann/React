@@ -1,9 +1,8 @@
-import {Link, useNavigate} from "react-router-dom";
+import { useNavigate} from "react-router-dom";
 import Header from "../components/Header";
-import {AuthProvider, useAuth} from '../security/user';
+import { useAuth} from '../security/user';
 import {useEffect, useState} from "react";
 import InputField from "../components/InputField";
-import {Navbar} from "../components/navbar";
 import ErrorMessage from "../components/errorMessage";
 import Button from "../components/Button";
 import ButtonAddQuote from "../components/ButtonAddQuote";
@@ -14,6 +13,7 @@ const Profil = () => {
     const {userStatusInfo} = useAuth();
     const navigate = useNavigate();
     const [password, setPassword] = useState('');
+    const [confPassword, setConfPassword] = useState('');
     const [login, setLogin] = useState(userStatusInfo.infoUser.login);
     const [email, setEmail] = useState(userStatusInfo.infoUser.email);
     const [errors, setErrors] = useState([]);
@@ -54,42 +54,69 @@ const Profil = () => {
     const handleEmailChange = (event) => {
         setEmail(event.target.value);
     };
+    const handleConfirmPasswordChange = (event) => {
+        setConfPassword(event.target.value);
+    };
 
 
     const handleSubmit = (event) => {
         event.preventDefault();
         const token = localStorage.getItem('token');
-        if (login !== '' && password !== '') {
+        const formData = {'login': login, 'email': email, 'page': 'profil'};
 
-            const formData = {'login': login, 'password': password, 'email': email, 'page': 'profil'};
+        fetch('http://127.0.0.1/ReactApi-/traitement.php', {
+            method: 'POST', headers: {'Content-Type': 'application/json', Authorization: token}, // Modifier l'en-tête Content-Type
+            body: JSON.stringify(formData),
+        })
+            .then(response => response.json())
+            .then(data => {
+                console.log(data)
+                localStorage.removeItem('token');
+                if (data.status !== true) {
+                    setErrors(data)
+                    navigate('/deconnexion');
 
-            fetch('http://127.0.0.1/ReactApi-/traitement.php', {
-                method: 'POST', headers: {'Content-Type': 'multipart/form-data', Authorization: token}, // Modifier l'en-tête Content-Type
-                body: JSON.stringify(formData),
+                }
             })
-                .then(response => response.json())
-                .then(data => {
-                    console.log(data)
-                    localStorage.removeItem('token');
-                    if (data.status !== true) {
-                        setErrors(data)
+            .catch(error => {
+                // Gérez les erreurs
+                console.log(error);
+            });
 
-                        navigate('/deconnexion');
+        setLogin("");
+        setEmail("");
 
-                    }
-                })
-                .catch(error => {
-                    // Gérez les erreurs
-                    console.log(error);
-                });
-
-            setPassword("");
-            setLogin("");
-            setEmail("");
-
-        }
 
     };
+    const handleSubmitChangePassword = (event) => {
+        event.preventDefault();
+        const token = localStorage.getItem('token');
+        const formData = {'password':password, 'confPassword':confPassword,'page': 'profilPassword'};
+
+        fetch('http://127.0.0.1/ReactApi-/traitement.php', {
+            method: 'POST', headers: {'Content-Type': 'application/json', Authorization: token}, // Modifier l'en-tête Content-Type
+            body: JSON.stringify(formData),
+        })
+            .then(response => response.json())
+            .then(data => {
+                console.log(data)
+                localStorage.removeItem('token');
+                if (data.status !== true) {
+                    setErrors(data)
+                    navigate('/deconnexion');
+
+                }
+            })
+            .catch(error => {
+                // Gérez les erreurs
+                console.log(error);
+            });
+
+        setPassword("");
+        setConfPassword("");
+    };
+
+
 
 
     if (userStatusInfo === null) {
@@ -99,6 +126,7 @@ const Profil = () => {
             <Header/>
             <div>
                 <h1 className={"font-bold text-center text-5xl  my-9"}>Profil</h1>
+                <h3 className={"font-bold text-center text-3xl  my-9"}> Bienvenue {userStatusInfo.infoUser.login} ! </h3>
                 <div className={"w-9/12 h-auto m-auto justify-center"}>
                     <form onSubmit={handleSubmit}>
                         <InputField
@@ -118,14 +146,32 @@ const Profil = () => {
                             onChange={handleLoginChange}
                         />
 
+                        <ErrorMessage messages={errors}/>
+
+                        <Button
+                            className={"bg-blue-500 hover:bg-blue-400 text-white font-bold py-2 px-4 border-b-4 border-blue-700 hover:border-blue-500 rounded justify-center"}
+                            type="submit" innerHTML={"Envoyer"}>
+                        </Button>
+                    </form>
+                    <h3 className={"font-bold text-center text-2xl  my-9"}> Changer votre mot de passe </h3>
+                    <form onSubmit={handleSubmitChangePassword}>
                         <InputField
-                            placeholder={"YourPassword"}
+                            placeholder={"Password"}
                             className={"appearance-none block w-full bg-gray-200 text-gray-700 border rounded py-3 px-4 mb-3 leading-tight focus:outline-none focus:bg-white"}
                             label="Password:"
                             type="password"
                             value={password}
                             onChange={handlePasswordChange}
                         />
+                        <InputField
+                            placeholder={"Password"}
+                            className={"appearance-none block w-full bg-gray-200 text-gray-700 border rounded py-3 px-4 mb-3 leading-tight focus:outline-none focus:bg-white"}
+                            label="Password:"
+                            type="password"
+                            value={confPassword}
+                            onChange={handleConfirmPasswordChange}
+                        />
+
                         <ErrorMessage messages={errors}/>
 
                         <Button

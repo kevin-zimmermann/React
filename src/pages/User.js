@@ -1,8 +1,6 @@
-import {Link, useParams} from "react-router-dom";
+import {useParams} from "react-router-dom";
 import Header from "../components/Header";
 import {useEffect, useState} from "react";
-import {AuthProvider} from "../security/user";
-import {Navbar} from "../components/navbar";
 import ButtonAddQuote from "../components/ButtonAddQuote";
 const User = () => {
     const params = useParams();

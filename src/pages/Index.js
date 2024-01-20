@@ -1,8 +1,7 @@
 import {Link} from "react-router-dom";
 import Header from "../components/Header";
 import {useEffect, useState} from "react";
-import {AuthProvider, useAuth} from "../security/user";
-import {Navbar} from "../components/navbar";
+import {useAuth} from "../security/user";
 import ButtonAddQuote from "../components/ButtonAddQuote";
 import Quotes from "../components/Quotes";
 import ErrorMessage from "../components/errorMessage";
@@ -85,7 +84,7 @@ const Index = () => {
             <main className="flex-grow">
                 {userStatusInfo && userStatusInfo.is_user === true ? (
                     <div className="flex w-full items-start justify-center gap-2.5 mb-7">
-                        <form className={""} onSubmit={handleSubmit}>
+                        <form className="w-9/12" onSubmit={handleSubmit}>
             <textarea
                 id="description"
                 rows="4"
@@ -97,7 +96,7 @@ const Index = () => {
                             <ErrorMessage messages={errors} />
                             <Button
                                 className={
-                                    "bg-blue-500 hover:bg-blue-400 text-white font-bold py-2 px-4 border-b-4 border-blue-700 hover:border-blue-500 rounded justify-center "
+                                    "bg-blue-500 hover:bg-blue-400 text-white font-bold py-2 px-4 border-b-4 border-blue-700 hover:border-blue-500 rounded  justify-center "
                                 }
                                 type="submit"
                                 innerHTML={"Envoyez vos inspirations"}
